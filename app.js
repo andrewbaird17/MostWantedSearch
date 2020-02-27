@@ -38,6 +38,7 @@ function mainMenu(person, people){
   switch(displayOption){
     case "info":
       // TODO: get person's info
+      displayPerson(person);
       break;
     case "family":
       // TODO: get person's family
@@ -67,13 +68,13 @@ function searchByName(people){
 
   // TODO: What to do with filteredPeople?
 
-  // if single person grab that person and send to mainMenu(person,people)
+  // if single person grab that person and send to mainMenu(person,people) --> done back up in original app function
   // if more than one person with same name, narrow it down further with other traits? -- Is doing this too much?
   if(filteredPeople.length === 1){
     let person = filteredPeople[0];
     return person;
   } else if(filteredPeople.length > 1){
-    // narrow down search further
+    // narrow down search further?
   } else{
     let person = null;
     return person;
@@ -93,6 +94,11 @@ function displayPerson(person){
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   // TODO: finish getting the rest of the information to display
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Date of Birth: " + person.dob + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n";
+  personInfo += "Occupation: " + person.occupation;
   alert(personInfo);
 }
 
