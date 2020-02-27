@@ -9,6 +9,9 @@ function app(people){
   switch(searchType){
     case 'yes':
       // TODO: search by name
+      // Call the function of searchByName pass in the people array 
+      var person = searchByName(people);
+      mainMenu(people,person);
       break;
     case 'no':
       // TODO: search by traits
@@ -63,7 +66,17 @@ function searchByName(people){
   });
 
   // TODO: What to do with filteredPeople?
-
+  // if single person grab that person and send to mainMenu(person,people)
+  // if more than one person with same name, narrow it down further with other traits? -- Is doing this too much?
+  if(filteredPeople.length === 1){
+    let person = filteredPeople.shfit();
+    return person;
+  } else if(filteredPeople.length > 1){
+    // narrow down search further
+  } else{
+    let person = null;
+    return person;
+  }
 }
 
 // alerts a list of people
