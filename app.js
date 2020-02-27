@@ -65,8 +65,22 @@ function searchByTraits(people){
   var traitType = promptFor("Which trait would you like to search for? Choose one of the following: gender, dob, height, weight, eyecolor, occupation",chars).toLowerCase();
   switch(traitType){
     // utilize displayPeople to display the list of narrowed down people
-    // need to check for if the array has a length of 1, then break and return the person
+    // need to check for if fileterPeople.length === 1, then break and return the person
+    // need to use recursion to let person which trait to sort by next if filterPeople.length > 1
     case 'gender':
+      var response = promptFor("Which gender to filter by? male or female", chars).toLowerCase();
+      var filteredPeople = searchBySingleTrait(people,response,"gender");
+      displayPeople(filteredPeople);
+      if(filteredPeople.length === 1){
+        let person = filteredPeople[0];
+        return person;
+      } else if(filteredPeople.length > 1){
+        // return the filteredPeople array to use elsewhere to narrow down search
+        searchByTraits(filteredPeople);
+      } else{ 
+        let person = null;
+        return person;
+      }
       break;
     case 'dob':
       break;
@@ -81,7 +95,6 @@ function searchByTraits(people){
     default:
       alert("Invalid input. Please try again!");
       searchByTraits(people);
-      break;
   }
   return person;
 }
@@ -97,28 +110,42 @@ function searchByName(people){
   });
 
   // TODO: What to do with filteredPeople?
-
-  // if single person grab that person
-  // if more than one person with same name, narrow it down further with other traits? -- Is doing this too much?
+  // Use below two lines if figure out how to handle check of object vs array in searchByTraits function
+  //var person = checkFilteredList(filteredPeople);
+  //return person
   if(filteredPeople.length === 1){
     let person = filteredPeople[0];
     return person;
   } else if(filteredPeople.length > 1){
-    // narrow down search further?
+    // return the filteredPeople array to use elsewhere to narrow down search
+    return filteredPeople;
   } else{ 
     let person = null;
     return person;
   }
 }
 
-function searchByGender(people){
-  var gender = promptFor("What is the person's gender?", chars);
+/* function checkFilteredList(filteredPeople){
+  if(filteredPeople.length === 1){
+    let person = filteredPeople[0];
+    return person;
+  } else if(filteredPeople.length > 1){
+    // return the filteredPeople array to use elsewhere to narrow down search
+    return filteredPeople;
+  } else{ 
+    let person = null;
+    return person;
+  }
+} */
+
+function searchBySingleTrait(people,response,trait){
 
   let filteredPeople = people.filter(function(el) {
-    if(el.gender === gender){
+    if(el.trait == response){
       return el;
     }
   });
+  return filteredPeople;
 }
 
 // alerts a list of people
