@@ -83,20 +83,84 @@ function searchByTraits(people){
       }
       break;
     case 'dob':
+      var response = promptFor("Type in the Date of Birth in m/d/year format", chars);
+      var filteredPeople = searchBySingleTrait(people,response,"dob");
+      displayPeople(filteredPeople);
+      if(filteredPeople.length === 1){
+        let person = filteredPeople[0];
+        return person;
+      } else if(filteredPeople.length > 1){
+        // return the filteredPeople array to use elsewhere to narrow down search
+        searchByTraits(filteredPeople);
+      } else{ 
+        let person = null;
+        return person;
+      }
       break;
     case 'height':
+      var response = parseInt(promptFor("Enter height:", chars));
+      var filteredPeople = searchBySingleTrait(people,response,"height");
+      displayPeople(filteredPeople);
+      if(filteredPeople.length === 1){
+        let person = filteredPeople[0];
+        return person;
+      } else if(filteredPeople.length > 1){
+        // return the filteredPeople array to use elsewhere to narrow down search
+        searchByTraits(filteredPeople);
+      } else{ 
+        let person = null;
+        return person;
+      }
       break;
     case 'weight':
+      var response = parseInt(promptFor("Enter weight", chars));
+      var filteredPeople = searchBySingleTrait(people,response,"weight");
+      displayPeople(filteredPeople);
+      if(filteredPeople.length === 1){
+        let person = filteredPeople[0];
+        return person;
+      } else if(filteredPeople.length > 1){
+        // return the filteredPeople array to use elsewhere to narrow down search
+        searchByTraits(filteredPeople);
+      } else{ 
+        let person = null;
+        return person;
+      }
       break;
     case 'eyecolor':
+      var response = promptFor("Enter the eye color to filter by: ", chars).toLowerCase();
+      var filteredPeople = searchBySingleTrait(people,response,"eyeColor");
+      displayPeople(filteredPeople);
+      if(filteredPeople.length === 1){
+        let person = filteredPeople[0];
+        return person;
+      } else if(filteredPeople.length > 1){
+        // return the filteredPeople array to use elsewhere to narrow down search
+        searchByTraits(filteredPeople);
+      } else{ 
+        let person = null;
+        return person;
+      }
       break;
     case 'occupation':
+      var response = promptFor("Enter the occupation to filter by: ", chars).toLowerCase();
+      var filteredPeople = searchBySingleTrait(people,response,"occupation");
+      displayPeople(filteredPeople);
+      if(filteredPeople.length === 1){
+        let person = filteredPeople[0];
+        return person;
+      } else if(filteredPeople.length > 1){
+        // return the filteredPeople array to use elsewhere to narrow down search
+        searchByTraits(filteredPeople);
+      } else{ 
+        let person = null;
+        return person;
+      }
       break;
     default:
       alert("Invalid input. Please try again!");
       searchByTraits(people);
   }
-  return person;
 }
 
 function searchByName(people){
@@ -141,7 +205,7 @@ function searchByName(people){
 function searchBySingleTrait(people,response,trait){
 
   let filteredPeople = people.filter(function(el) {
-    if(el.trait == response){
+    if(el[trait] === response){
       return el;
     }
   });
