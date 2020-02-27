@@ -39,6 +39,7 @@ function mainMenu(person, people){
     case "info":
       // TODO: get person's info
       displayPerson(person);
+      mainMenu(person,people);
       break;
     case "family":
       // TODO: get person's family
