@@ -16,7 +16,7 @@ function app(people){
     case 'no':
       // TODO: search by traits
       var person = searchByTraits(people); //master function to take people, choose a trait to narrow down by, display that list of people, ask to narrow down by more traits (yes or no prompt), repeat process until only one person is left 
-      var tratitType = promptFor("Which trait would you like to search for? Choose one of the following: gender, dob, height, weight, eyecolor, occupation",chars).toLowerCase();
+      mainMenu(person,people);
       break;
     default:
       alert("Invalid input. Please try again!");
@@ -62,6 +62,28 @@ function mainMenu(person, people){
 //master function to take people, choose a trait to narrow down by, display that list of people, ask to narrow down by more traits (yes or no prompt), repeat process until only one person is left
 function searchByTraits(people){
 
+  var traitType = promptFor("Which trait would you like to search for? Choose one of the following: gender, dob, height, weight, eyecolor, occupation",chars).toLowerCase();
+  switch(traitType){
+    // utilize displayPeople to display the list of narrowed down people
+    // need to check for if the array has a length of 1, then break and return the person
+    case 'gender':
+      break;
+    case 'dob':
+      break;
+    case 'height':
+      break;
+    case 'weight':
+      break;
+    case 'eyecolor':
+      break;
+    case 'occupation':
+      break;
+    default:
+      alert("Invalid input. Please try again!");
+      searchByTraits(people);
+      break;
+  }
+  return person;
 }
 
 function searchByName(people){
