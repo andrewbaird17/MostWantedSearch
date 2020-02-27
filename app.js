@@ -59,9 +59,10 @@ function mainMenu(person, people){
   }
 }
 
-//master function to take people, choose a trait to narrow down by, display that list of people, ask to narrow down by more traits (yes or no prompt), repeat process until only one person is left
+// search by multiple traits works except the recursive call back kills the end result and makes it the final result
+// may have to return each list to the 'no' option of app() function, do the check for length === 1 and then pass the person if true otherwise recursively call searchbyTraits with filteredlist
 function searchByTraits(people){
-
+  var person;
   var traitType = promptFor("Which trait would you like to search for? Choose one of the following: gender, dob, height, weight, eyecolor, occupation",chars).toLowerCase();
   switch(traitType){
     // utilize displayPeople to display the list of narrowed down people
@@ -72,14 +73,12 @@ function searchByTraits(people){
       var filteredPeople = searchBySingleTrait(people,response,"gender");
       displayPeople(filteredPeople);
       if(filteredPeople.length === 1){
-        let person = filteredPeople[0];
-        return person;
+        person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
         // return the filteredPeople array to use elsewhere to narrow down search
         searchByTraits(filteredPeople);
       } else{ 
-        let person = null;
-        return person;
+        person = null;
       }
       break;
     case 'dob':
@@ -87,14 +86,12 @@ function searchByTraits(people){
       var filteredPeople = searchBySingleTrait(people,response,"dob");
       displayPeople(filteredPeople);
       if(filteredPeople.length === 1){
-        let person = filteredPeople[0];
-        return person;
+        var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
         // return the filteredPeople array to use elsewhere to narrow down search
         searchByTraits(filteredPeople);
       } else{ 
-        let person = null;
-        return person;
+        var person = null;
       }
       break;
     case 'height':
@@ -102,14 +99,12 @@ function searchByTraits(people){
       var filteredPeople = searchBySingleTrait(people,response,"height");
       displayPeople(filteredPeople);
       if(filteredPeople.length === 1){
-        let person = filteredPeople[0];
-        return person;
+        var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
         // return the filteredPeople array to use elsewhere to narrow down search
         searchByTraits(filteredPeople);
       } else{ 
-        let person = null;
-        return person;
+        var person = null;
       }
       break;
     case 'weight':
@@ -117,14 +112,12 @@ function searchByTraits(people){
       var filteredPeople = searchBySingleTrait(people,response,"weight");
       displayPeople(filteredPeople);
       if(filteredPeople.length === 1){
-        let person = filteredPeople[0];
-        return person;
+        var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
         // return the filteredPeople array to use elsewhere to narrow down search
         searchByTraits(filteredPeople);
       } else{ 
-        let person = null;
-        return person;
+        var person = null;
       }
       break;
     case 'eyecolor':
@@ -132,14 +125,12 @@ function searchByTraits(people){
       var filteredPeople = searchBySingleTrait(people,response,"eyeColor");
       displayPeople(filteredPeople);
       if(filteredPeople.length === 1){
-        let person = filteredPeople[0];
-        return person;
+        var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
         // return the filteredPeople array to use elsewhere to narrow down search
         searchByTraits(filteredPeople);
       } else{ 
-        let person = null;
-        return person;
+        var person = null;
       }
       break;
     case 'occupation':
@@ -147,20 +138,19 @@ function searchByTraits(people){
       var filteredPeople = searchBySingleTrait(people,response,"occupation");
       displayPeople(filteredPeople);
       if(filteredPeople.length === 1){
-        let person = filteredPeople[0];
-        return person;
+        var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
         // return the filteredPeople array to use elsewhere to narrow down search
         searchByTraits(filteredPeople);
       } else{ 
-        let person = null;
-        return person;
+        var person = null;
       }
       break;
     default:
       alert("Invalid input. Please try again!");
       searchByTraits(people);
   }
+  return person;
 }
 
 function searchByName(people){
@@ -178,13 +168,13 @@ function searchByName(people){
   //var person = checkFilteredList(filteredPeople);
   //return person
   if(filteredPeople.length === 1){
-    let person = filteredPeople[0];
+    var person = filteredPeople[0];
     return person;
   } else if(filteredPeople.length > 1){
     // return the filteredPeople array to use elsewhere to narrow down search
     return filteredPeople;
   } else{ 
-    let person = null;
+    var person = null;
     return person;
   }
 }
