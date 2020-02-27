@@ -15,6 +15,8 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
+      var person = searchByTraits(people); //master function to take people, choose a trait to narrow down by, display that list of people, ask to narrow down by more traits (yes or no prompt), repeat process until only one person is left 
+      var tratitType = promptFor("Which trait would you like to search for? Choose one of the following: gender, dob, height, weight, eyecolor, occupation",chars).toLowerCase();
       break;
     default:
       alert("Invalid input. Please try again!");
@@ -57,6 +59,11 @@ function mainMenu(person, people){
   }
 }
 
+//master function to take people, choose a trait to narrow down by, display that list of people, ask to narrow down by more traits (yes or no prompt), repeat process until only one person is left
+function searchByTraits(people){
+
+}
+
 function searchByName(people){
   var firstName = promptFor("What is the person's first name?", chars);
   var lastName = promptFor("What is the person's last name?", chars);
@@ -69,17 +76,27 @@ function searchByName(people){
 
   // TODO: What to do with filteredPeople?
 
-  // if single person grab that person and send to mainMenu(person,people) --> done back up in original app function
+  // if single person grab that person
   // if more than one person with same name, narrow it down further with other traits? -- Is doing this too much?
   if(filteredPeople.length === 1){
     let person = filteredPeople[0];
     return person;
   } else if(filteredPeople.length > 1){
     // narrow down search further?
-  } else{
+  } else{ 
     let person = null;
     return person;
   }
+}
+
+function searchByGender(people){
+  var gender = promptFor("What is the person's gender?", chars);
+
+  let filteredPeople = people.filter(function(el) {
+    if(el.gender === gender){
+      return el;
+    }
+  });
 }
 
 // alerts a list of people
