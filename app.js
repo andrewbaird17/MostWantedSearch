@@ -51,7 +51,8 @@ function mainMenu(person, people){
     case "descendants":
       // TODO: get person's descendants
       var familyTrees = mapFamilyTrees(people);
-      searchForDescendants(person,familyTrees);
+      var descendantsList = searchForDescendants(person,familyTrees);
+      displayPeople(descendantsList);
       mainMenu(person,people);
       break;
     case "restart":
@@ -87,8 +88,29 @@ function mapFamilyTrees(people){
   return mappedPeople;
 }
 
-function searchForDescendants(person,mappedPeople){
+function searchForDescendants(person,familyTrees){
+  var personTree;
+  for (x in familyTrees){
+    if (x == person.id){
+      personTree = familyTrees[x];
+    }
+  }
+  // figure out how to do recursion here since nesting if upon if 
+  var descendants = [];
+  var descendantsList = addChildrenToDescendants(personTree,descendants);
+  return descendantsList;
+}
 
+function addChildrenToDescendants(personTree,descendants){
+  for (var childID in personTree["children"]){
+    descendants.push(personTree["children"][childID]);
+    // check the childID for "children"
+    // need to add these children to the descendants array
+    if (personTree["children"][childID].hasOwnProperty("children")){
+      addChildrenToDescendants(personTree["children"][childID],descendants)
+    }
+  }
+  return descendants;
 }
 
 function searchForFamily(person, people){
