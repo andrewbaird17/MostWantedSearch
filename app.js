@@ -174,6 +174,19 @@ function searchForFamily(person,familyTrees, people){
       }
     }
   }
+  if (personTree["children"] !== 0){
+    for(var x of personTree["children"]){
+      var foundChild = people.filter(function(el){
+        if(el["id"] === x["id"]){
+          return el;
+        }
+      });
+      var addChild = foundChild[0];
+      familyList.push(addChild);
+      var lastAdd = familyList.length - 1;
+      familyList[lastAdd].relation = "Child";
+    }
+  }
   return familyList;
 }
 
