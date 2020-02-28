@@ -192,84 +192,50 @@ function searchByTraits(people){
     case 'gender':
       var response = promptFor("Which gender to filter by? male or female", chars).toLowerCase();
       var filteredPeople = searchBySingleTrait(people,response,"gender");
-      if(filteredPeople.length === 1){
-        person = filteredPeople[0];
-      } else if(filteredPeople.length > 1){
-        displayPeople(filteredPeople);
-        person = searchByTraits(filteredPeople);
-      } else{ 
-        person = null;
-        alert("No person found with these traits! You will be prompted to try again.");
-      }
+      person = filteredPeopleCheck(filteredPeople);
       break;
     case 'dob':
       var response = promptFor("Type in the Date of Birth in m/d/year format", chars);
       var filteredPeople = searchBySingleTrait(people,response,"dob");
-      if(filteredPeople.length === 1){
-        person = filteredPeople[0];
-      } else if(filteredPeople.length > 1){
-        displayPeople(filteredPeople);
-        person = searchByTraits(filteredPeople);
-      } else{ 
-        person = null;
-        alert("No person found with these traits! You will be prompted to try again.");
-      }
+      person = filteredPeopleCheck(filteredPeople);
       break;
     case 'height':
       var response = parseInt(promptFor("Enter height:", chars));
       var filteredPeople = searchBySingleTrait(people,response,"height");
-      if(filteredPeople.length === 1){
-        person = filteredPeople[0];
-      } else if(filteredPeople.length > 1){
-        displayPeople(filteredPeople);
-        person = searchByTraits(filteredPeople);
-      } else{ 
-        person = null;
-        alert("No person found with these traits! You will be prompted to try again.");
-      }
+      person = filteredPeopleCheck(filteredPeople);
       break;
     case 'weight':
       var response = parseInt(promptFor("Enter weight", chars));
       var filteredPeople = searchBySingleTrait(people,response,"weight");
-      if(filteredPeople.length === 1){
-        person = filteredPeople[0];
-      } else if(filteredPeople.length > 1){
-        displayPeople(filteredPeople);
-        person = searchByTraits(filteredPeople);
-      } else{ 
-        person = null;
-        alert("No person found with these traits! You will be prompted to try again.");
-      }
+      person = filteredPeopleCheck(filteredPeople);
       break;
     case 'eyecolor':
       var response = promptFor("Enter the eye color to filter by: ", chars).toLowerCase();
       var filteredPeople = searchBySingleTrait(people,response,"eyeColor");
-      if(filteredPeople.length === 1){
-        person = filteredPeople[0];
-      } else if(filteredPeople.length > 1){
-        displayPeople(filteredPeople);
-        person = searchByTraits(filteredPeople);
-      } else{ 
-        person = null;
-        alert("No person found with these traits! You will be prompted to try again.");
-      }
+      person = filteredPeopleCheck(filteredPeople);
       break;
     case 'occupation':
       var response = promptFor("Enter the occupation to filter by: ", chars).toLowerCase();
       var filteredPeople = searchBySingleTrait(people,response,"occupation");
-      if(filteredPeople.length === 1){
-        person = filteredPeople[0];
-      } else if(filteredPeople.length > 1){
-        displayPeople(filteredPeople);
-        person = searchByTraits(filteredPeople);
-      } else{ 
-        person = null;
-        alert("No person found with these traits! You will be prompted to try again.");
-      }
+      person = filteredPeopleCheck(filteredPeople);
       break;
     default:
       alert("Invalid input. Please try again!");
       searchByTraits(people);
+  }
+  return person;
+}
+
+function filteredPeopleCheck(filteredPeople){
+  var person;
+  if(filteredPeople.length === 1){
+    person = filteredPeople[0];
+  } else if(filteredPeople.length > 1){
+    displayPeople(filteredPeople);
+    person = searchByTraits(filteredPeople);
+  } else{ 
+    person = null;
+    alert("No person found with these traits! You will be prompted to try again.");
   }
   return person;
 }
@@ -285,7 +251,6 @@ function searchByName(people){
   });
 
   // TODO: What to do with filteredPeople?
-
   if(filteredPeople.length === 1){
     var person = filteredPeople[0];
     return person;
