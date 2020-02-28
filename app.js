@@ -124,14 +124,22 @@ function searchForFamily(person,familyTrees, people){
     }
   }
   var familyList = [];
-  for (var x in personTree["parents"]){
-    if (personTree["parents"].length === 0){
-      familyList.push(personTree["parents"][x])
-      familyList.personTree["parents"][x].relation = 'Parent';
+  if (personTree["parents"].length !== 0){
+    for (var x in personTree["parents"]){
+      //familyList.push(personTree["parents"][x]);
+      var foundParent = people.filter(function(el){
+        if(el["id"] === personTree["parents"][x]){
+          return el;
+        }
+      });
+      var addParent = foundParent[0];
+      familyList.push(addParent);
+      var lastAdd = familyList.length - 1;
+      familyList[lastAdd].relation = 'Parent';
     }
   }
   for (var person in people){
-    if (people[person]["parents"] == personTree["parents"]){
+    if (people[person]["parents"] === personTree["parents"]){
       familyList.push(people[person]);
       var lastAdd = familyList.length - 1;
       familyList[lastAdd].relation = 'Sibling';
