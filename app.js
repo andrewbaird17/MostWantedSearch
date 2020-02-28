@@ -50,7 +50,8 @@ function mainMenu(person, people){
       break;
     case "descendants":
       // TODO: get person's descendants
-      searchForDescendants(person,people);
+      var familyTrees = mapFamilyTrees(people);
+      searchForDescendants(person,familyTrees);
       mainMenu(person,people);
       break;
     case "restart":
@@ -63,8 +64,30 @@ function mainMenu(person, people){
   }
 }
 
-function searchForDescendants(person, people){
+function mapFamilyTrees(people){
+  var tree = [], mappedPeople = {}, peopleEl, mappedEl;
+  for(var i = 0; i < people.length; i++){
+    peopleEl = people[i];
+    mappedPeople[peopleEl.id] = peopleEl;
+    mappedPeople[peopleEl.id]['children'] = [];
+  }
 
+  for (var id in mappedPeople){
+    if(mappedPeople.hasOwnProperty(id)){
+      mappedEl = mappedPeople[id];
+      for (var parentID in mappedEl["parents"]){
+        if (mappedEl["parents"][parentID]){
+          mappedPeople[mappedEl["parents"][parentID]]['children'].push(mappedEl);
+        }
+      }
+    } else {
+      tree.push(mappedEl);
+    }
+  }
+  return mappedPeople;
+}
+
+function searchForDescendants(person,mappedPeople){
 
 }
 
