@@ -76,7 +76,7 @@ function searchByTraits(people){
         person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
         // return the filteredPeople array to use elsewhere to narrow down search
-        searchByTraits(filteredPeople);
+        person = searchByTraits(filteredPeople);
       } else{ 
         person = null;
       }
@@ -89,7 +89,7 @@ function searchByTraits(people){
         var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
         // return the filteredPeople array to use elsewhere to narrow down search
-        searchByTraits(filteredPeople);
+        person = searchByTraits(filteredPeople);
       } else{ 
         var person = null;
       }
@@ -102,7 +102,7 @@ function searchByTraits(people){
         var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
         // return the filteredPeople array to use elsewhere to narrow down search
-        searchByTraits(filteredPeople);
+        person = searchByTraits(filteredPeople);
       } else{ 
         var person = null;
       }
@@ -115,7 +115,7 @@ function searchByTraits(people){
         var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
         // return the filteredPeople array to use elsewhere to narrow down search
-        searchByTraits(filteredPeople);
+        person = searchByTraits(filteredPeople);
       } else{ 
         var person = null;
       }
@@ -128,7 +128,7 @@ function searchByTraits(people){
         var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
         // return the filteredPeople array to use elsewhere to narrow down search
-        searchByTraits(filteredPeople);
+        person = searchByTraits(filteredPeople);
       } else{ 
         var person = null;
       }
@@ -141,7 +141,7 @@ function searchByTraits(people){
         var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
         // return the filteredPeople array to use elsewhere to narrow down search
-        searchByTraits(filteredPeople);
+        person = searchByTraits(filteredPeople);
       } else{ 
         var person = null;
       }
