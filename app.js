@@ -126,7 +126,6 @@ function searchForFamily(person,familyTrees, people){
   var familyList = [];
   if (personTree["parents"].length !== 0){
     for (var x in personTree["parents"]){
-      //familyList.push(personTree["parents"][x]);
       var foundParent = people.filter(function(el){
         if(el["id"] === personTree["parents"][x]){
           return el;
@@ -137,6 +136,17 @@ function searchForFamily(person,familyTrees, people){
       var lastAdd = familyList.length - 1;
       familyList[lastAdd].relation = 'Parent';
     }
+  }
+  if (personTree["currentSpouse"] !== null){
+    var foundSpouse = people.filter(function(el){
+      if(el["id"] === personTree["currentSpouse"]){
+        return el;
+      }
+    });
+    var addSpouse = foundSpouse[0];
+    familyList.push(addSpouse);
+    var lastAdd = familyList.length - 1;
+    familyList[lastAdd].relation = 'Spouse';
   }
   for (var person in people){
     if (people[person]["parents"] === personTree["parents"]){
