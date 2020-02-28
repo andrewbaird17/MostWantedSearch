@@ -148,13 +148,29 @@ function searchForFamily(person,familyTrees, people){
     var lastAdd = familyList.length - 1;
     familyList[lastAdd].relation = 'Spouse';
   }
-  for (var person in people){
+  if ((familyList[0].relation == "Parent" && familyList[1].relation == "Parent") || (familyList[0].relation == "Parent")){
+    var foundSiblings = people.filter(function(el){
+      if((el.parents).toString() === (personTree["parents"]).toString()){
+        if (el["id"] !== personTree["id"]){
+          return el;
+        }
+      }
+    });
+    if (foundSiblings.length !== 0){
+      for (var sibling of foundSiblings){
+        familyList.push(sibling);
+        var lastAdd = familyList.length - 1;
+        familyList[lastAdd].relation = "Sibling";
+      }
+    }
+  }
+/*   for (var person in people){
     if (people[person]["parents"] === personTree["parents"]){
       familyList.push(people[person]);
       var lastAdd = familyList.length - 1;
       familyList[lastAdd].relation = 'Sibling';
     }
-  }
+  } */
   return familyList;
 }
 
