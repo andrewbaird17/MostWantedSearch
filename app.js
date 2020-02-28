@@ -45,9 +45,13 @@ function mainMenu(person, people){
       break;
     case "family":
       // TODO: get person's family
+      searchForFamily(person,people);
+      mainMenu(person,people);
       break;
     case "descendants":
       // TODO: get person's descendants
+      searchForDescendants(person,people);
+      mainMenu(person,people);
       break;
     case "restart":
       app(people); // restart
@@ -59,15 +63,21 @@ function mainMenu(person, people){
   }
 }
 
-// search by multiple traits works except the recursive call back kills the end result and makes it the final result
-// may have to return each list to the 'no' option of app() function, do the check for length === 1 and then pass the person if true otherwise recursively call searchbyTraits with filteredlist
+function searchForDescendants(person, people){
+
+
+}
+
+function searchForFamily(person, people){
+
+
+}
+
+
 function searchByTraits(people){
   var person;
   var traitType = promptFor("Which trait would you like to search for? Choose one of the following: gender, dob, height, weight, eyecolor, occupation",chars).toLowerCase();
   switch(traitType){
-    // utilize displayPeople to display the list of narrowed down people
-    // need to check for if fileterPeople.length === 1, then break and return the person
-    // need to use recursion to let person which trait to sort by next if filterPeople.length > 1
     case 'gender':
       var response = promptFor("Which gender to filter by? male or female", chars).toLowerCase();
       var filteredPeople = searchBySingleTrait(people,response,"gender");
@@ -75,7 +85,6 @@ function searchByTraits(people){
       if(filteredPeople.length === 1){
         person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
-        // return the filteredPeople array to use elsewhere to narrow down search
         person = searchByTraits(filteredPeople);
       } else{ 
         person = null;
@@ -88,7 +97,6 @@ function searchByTraits(people){
       if(filteredPeople.length === 1){
         var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
-        // return the filteredPeople array to use elsewhere to narrow down search
         person = searchByTraits(filteredPeople);
       } else{ 
         var person = null;
@@ -101,7 +109,6 @@ function searchByTraits(people){
       if(filteredPeople.length === 1){
         var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
-        // return the filteredPeople array to use elsewhere to narrow down search
         person = searchByTraits(filteredPeople);
       } else{ 
         var person = null;
@@ -114,7 +121,6 @@ function searchByTraits(people){
       if(filteredPeople.length === 1){
         var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
-        // return the filteredPeople array to use elsewhere to narrow down search
         person = searchByTraits(filteredPeople);
       } else{ 
         var person = null;
@@ -127,7 +133,6 @@ function searchByTraits(people){
       if(filteredPeople.length === 1){
         var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
-        // return the filteredPeople array to use elsewhere to narrow down search
         person = searchByTraits(filteredPeople);
       } else{ 
         var person = null;
@@ -140,7 +145,6 @@ function searchByTraits(people){
       if(filteredPeople.length === 1){
         var person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
-        // return the filteredPeople array to use elsewhere to narrow down search
         person = searchByTraits(filteredPeople);
       } else{ 
         var person = null;
@@ -164,14 +168,11 @@ function searchByName(people){
   });
 
   // TODO: What to do with filteredPeople?
-  // Use below two lines if figure out how to handle check of object vs array in searchByTraits function
-  //var person = checkFilteredList(filteredPeople);
-  //return person
+
   if(filteredPeople.length === 1){
     var person = filteredPeople[0];
     return person;
   } else if(filteredPeople.length > 1){
-    // return the filteredPeople array to use elsewhere to narrow down search
     return filteredPeople;
   } else{ 
     var person = null;
@@ -179,21 +180,7 @@ function searchByName(people){
   }
 }
 
-/* function checkFilteredList(filteredPeople){
-  if(filteredPeople.length === 1){
-    let person = filteredPeople[0];
-    return person;
-  } else if(filteredPeople.length > 1){
-    // return the filteredPeople array to use elsewhere to narrow down search
-    return filteredPeople;
-  } else{ 
-    let person = null;
-    return person;
-  }
-} */
-
 function searchBySingleTrait(people,response,trait){
-
   let filteredPeople = people.filter(function(el) {
     if(el[trait] === response){
       return el;
