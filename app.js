@@ -45,7 +45,9 @@ function mainMenu(person, people){
       break;
     case "family":
       // TODO: get person's family
-      searchForFamily(person,people);
+      var familyTrees = mapFamilyTrees(people);
+      var familyList = searchForFamily(person,familyTrees,people);
+      displayFamily(familyList);
       mainMenu(person,people);
       break;
     case "descendants":
@@ -113,9 +115,35 @@ function addChildrenToDescendants(personTree,descendants){
   return descendants;
 }
 
-function searchForFamily(person, people){
+function searchForFamily(person,familyTrees, people){
+  // find the person Tree, find immediate family members (parents and siblings; children optional) and display names WITH Relation
+  var personTree;
+  for (var x in familyTrees){
+    if (x == person.id){
+      personTree = familyTrees[x];
+    }
+  }
+  var familyList = [];
+  for (var x in personTree["parents"]){
+    if (personTree["parents"].length === 0){
+      familyList.push(personTree["parents"][x])
+      familyList.personTree["parents"][x].relation = 'Parent';
+    }
+  }
+  for (var person in people){
+    if (people[person]["parents"] == personTree["parents"]){
+      familyList.push(people[person]);
+      var lastAdd = familyList.length - 1;
+      familyList[lastAdd].relation = 'Sibling';
+    }
+  }
+  return familyList;
+}
 
-
+function displayFamily(familyList){
+  alert(familyList.map(function(person){
+    return person.firstName + " " + person.lastName + " Relation: " + person.relation;
+  }).join("/n"));
 }
 
 
