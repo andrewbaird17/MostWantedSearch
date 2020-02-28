@@ -47,14 +47,22 @@ function mainMenu(person, people){
       // TODO: get person's family
       var familyTrees = mapFamilyTrees(people);
       var familyList = searchForFamily(person,familyTrees,people);
-      displayFamily(familyList);
+      if (familyList.length !== 0){
+        displayFamily(familyList);
+      } else{
+        alert("No Family Members Found!");
+      }
       mainMenu(person,people);
       break;
     case "descendants":
       // TODO: get person's descendants
       var familyTrees = mapFamilyTrees(people);
       var descendantsList = searchForDescendants(person,familyTrees);
-      displayPeople(descendantsList);
+      if (descendantsList.length !== 0){
+        displayPeople(descendantsList);
+      } else{
+        alert("No Descendants Found!");
+      }
       mainMenu(person,people);
       break;
     case "restart":
@@ -148,36 +156,32 @@ function searchForFamily(person,familyTrees, people){
     var lastAdd = familyList.length - 1;
     familyList[lastAdd].relation = 'Spouse';
   }
-  if ((familyList[0].relation == "Parent" && familyList[1].relation == "Parent") || (familyList[0].relation == "Parent")){
-    var foundSiblings = people.filter(function(el){
-      if((el.parents).toString() === (personTree["parents"]).toString()){
-        if (el["id"] !== personTree["id"]){
-          return el;
+  if (familyList.length !== 0){
+    if ((familyList[0].relation == "Parent" && familyList[1].relation == "Parent") || (familyList[0].relation == "Parent")){
+      var foundSiblings = people.filter(function(el){
+        if((el.parents).toString() === (personTree["parents"]).toString()){
+          if (el["id"] !== personTree["id"]){
+            return el;
+          }
         }
-      }
-    });
-    if (foundSiblings.length !== 0){
-      for (var sibling of foundSiblings){
-        familyList.push(sibling);
-        var lastAdd = familyList.length - 1;
-        familyList[lastAdd].relation = "Sibling";
+      });
+      if (foundSiblings.length !== 0){
+        for (var sibling of foundSiblings){
+          familyList.push(sibling);
+          var lastAdd = familyList.length - 1;
+          familyList[lastAdd].relation = "Sibling";
+        }
       }
     }
   }
-/*   for (var person in people){
-    if (people[person]["parents"] === personTree["parents"]){
-      familyList.push(people[person]);
-      var lastAdd = familyList.length - 1;
-      familyList[lastAdd].relation = 'Sibling';
-    }
-  } */
   return familyList;
 }
 
+// alerts the family list
 function displayFamily(familyList){
   alert(familyList.map(function(person){
-    return person.firstName + " " + person.lastName + " Relation: " + person.relation;
-  }).join("/n"));
+    return person.firstName + " " + person.lastName + "  --- Relation: " + person.relation;
+  }).join("\n"));
 }
 
 
@@ -188,73 +192,79 @@ function searchByTraits(people){
     case 'gender':
       var response = promptFor("Which gender to filter by? male or female", chars).toLowerCase();
       var filteredPeople = searchBySingleTrait(people,response,"gender");
-      displayPeople(filteredPeople);
       if(filteredPeople.length === 1){
         person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
+        displayPeople(filteredPeople);
         person = searchByTraits(filteredPeople);
       } else{ 
         person = null;
+        alert("No person found with these traits! You will be prompted to try again.");
       }
       break;
     case 'dob':
       var response = promptFor("Type in the Date of Birth in m/d/year format", chars);
       var filteredPeople = searchBySingleTrait(people,response,"dob");
-      displayPeople(filteredPeople);
       if(filteredPeople.length === 1){
-        var person = filteredPeople[0];
+        person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
+        displayPeople(filteredPeople);
         person = searchByTraits(filteredPeople);
       } else{ 
-        var person = null;
+        person = null;
+        alert("No person found with these traits! You will be prompted to try again.");
       }
       break;
     case 'height':
       var response = parseInt(promptFor("Enter height:", chars));
       var filteredPeople = searchBySingleTrait(people,response,"height");
-      displayPeople(filteredPeople);
       if(filteredPeople.length === 1){
-        var person = filteredPeople[0];
+        person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
+        displayPeople(filteredPeople);
         person = searchByTraits(filteredPeople);
       } else{ 
-        var person = null;
+        person = null;
+        alert("No person found with these traits! You will be prompted to try again.");
       }
       break;
     case 'weight':
       var response = parseInt(promptFor("Enter weight", chars));
       var filteredPeople = searchBySingleTrait(people,response,"weight");
-      displayPeople(filteredPeople);
       if(filteredPeople.length === 1){
-        var person = filteredPeople[0];
+        person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
+        displayPeople(filteredPeople);
         person = searchByTraits(filteredPeople);
       } else{ 
-        var person = null;
+        person = null;
+        alert("No person found with these traits! You will be prompted to try again.");
       }
       break;
     case 'eyecolor':
       var response = promptFor("Enter the eye color to filter by: ", chars).toLowerCase();
       var filteredPeople = searchBySingleTrait(people,response,"eyeColor");
-      displayPeople(filteredPeople);
       if(filteredPeople.length === 1){
-        var person = filteredPeople[0];
+        person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
+        displayPeople(filteredPeople);
         person = searchByTraits(filteredPeople);
       } else{ 
-        var person = null;
+        person = null;
+        alert("No person found with these traits! You will be prompted to try again.");
       }
       break;
     case 'occupation':
       var response = promptFor("Enter the occupation to filter by: ", chars).toLowerCase();
       var filteredPeople = searchBySingleTrait(people,response,"occupation");
-      displayPeople(filteredPeople);
       if(filteredPeople.length === 1){
-        var person = filteredPeople[0];
+        person = filteredPeople[0];
       } else if(filteredPeople.length > 1){
+        displayPeople(filteredPeople);
         person = searchByTraits(filteredPeople);
       } else{ 
-        var person = null;
+        person = null;
+        alert("No person found with these traits! You will be prompted to try again.");
       }
       break;
     default:
